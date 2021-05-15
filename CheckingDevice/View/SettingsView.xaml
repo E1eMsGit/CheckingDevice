@@ -1,0 +1,245 @@
+﻿<UserControl x:Class="TK158.View.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"   
+             xmlns:local="clr-namespace:TK158"
+             xmlns:vm="clr-namespace:TK158.ViewModel"
+             xmlns:v="clr-namespace:TK158.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:helpers="clr-namespace:TK158.Helpers" 
+             mc:Ignorable="d"        
+             MinHeight="400" MinWidth="400">
+
+    <UserControl.Resources>
+        <Style TargetType="TextBox" 
+               BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="MaxLength" Value="4"/>
+            <Setter Property="Margin" Value="0 0 25 0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="MinWidth" Value="50"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel Margin="10">
+        <Border Margin="0 0 0 5" Style="{StaticResource SettingsArea}">
+            <StackPanel>
+                <Grid Margin="10 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Режим проверки" Grid.Column="0" Grid.Row="0"
+                               Style="{StaticResource MyGroupTitleTextBlock}"/>
+                    <RadioButton Content="{Binding Mode1Text}" Grid.Column="0" Grid.Row="1"
+                                 IsChecked="{Binding IsMode1}"
+                                 Command="{Binding ChangeModeCommand}"
+                                 Style="{StaticResource MyGroupRadioButton}"/>
+                    <RadioButton Content="{Binding Mode2Text}" Grid.Column="0" Grid.Row="2"
+                                 IsChecked="{Binding IsMode2}"
+                                 Command="{Binding ChangeModeCommand}"
+                                 Style="{StaticResource MyGroupRadioButton}"/>
+                    <RadioButton Content="{Binding Mode3Text}" Grid.Column="1" Grid.Row="1"
+                                 IsChecked="{Binding IsMode3}"
+                                 Command="{Binding ChangeModeCommand}"
+                                 Style="{StaticResource MyGroupRadioButton}"/>
+                    <RadioButton x:Name="rbTestDevice" Visibility="Visible"
+                                 Content="{Binding Mode4Text}" Grid.Column="1" Grid.Row="2"
+                                 IsChecked="{Binding IsMode4}"
+                                 Command="{Binding ChangeModeCommand}"
+                                 Style="{StaticResource MyGroupRadioButton}"/>
+
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <Border Margin="0 0 0 5" Style="{StaticResource SettingsArea}">
+            <StackPanel Margin="10 0 10 5">
+                <TextBlock Text="Параметры проверки" 
+                               Style="{StaticResource MyGroupTitleTextBlock}"/>
+                <DockPanel>
+                    <Button DockPanel.Dock="Left" 
+                            Command="{Binding OpenFileCommand}"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                        <materialDesign:PackIcon Kind="Paperclip" Height="21" Width="21" RenderTransformOrigin="0.5,0.5">
+                            <materialDesign:PackIcon.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="-36.019"/>
+                                </TransformGroup>
+                            </materialDesign:PackIcon.RenderTransform>
+                        </materialDesign:PackIcon>
+                    </Button>
+                    <CheckBox Content="Цикличная отправка" 
+                              HorizontalAlignment="Right"
+                              DockPanel.Dock="Right"     
+                              IsChecked="{Binding IsInfiniteSending}"/>
+                    <DockPanel Margin="20 0">
+                        <Button Height="16" Width="16" DockPanel.Dock="Right"
+                                ToolTip="Закрыть файл"
+                                Visibility="{Binding CloseFileVisibility}" 
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                Command="{Binding CloseFileCommand}">
+                            <materialDesign:PackIcon Kind="Close" Height="15" Width="15"/>
+                        </Button>
+                        <TextBox Margin="0"
+                                 VerticalAlignment="Center" 
+                                 IsReadOnly="True" Cursor="Arrow" Focusable="False"
+                                 Text="{Binding FileName}"
+                                 materialDesign:HintAssist.Hint="Выберите файл"/>
+                    </DockPanel>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Margin="0 0 0 5" Style="{StaticResource SettingsArea}">
+            <StackPanel Margin="10 0 10 5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" 
+                               Text="Адреса устройств" 
+                               Style="{StaticResource MyGroupTitleTextBlock}"/>
+                    <StackPanel Grid.Row="1" 
+                                Orientation="Horizontal">
+                        <TextBox Grid.Column="0" Grid.Row="1" 
+                                 PreviewTextInput="AddressValidationTextBox" 
+                                 materialDesign:HintAssist.Hint="АУ1">
+                            <TextBox.Text>
+                                <Binding Path="Address1" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <helpers:AddressInputValidationRule ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Grid.Column="1" Grid.Row="1"
+                                 PreviewTextInput="AddressValidationTextBox" 
+                                 materialDesign:HintAssist.Hint="АУ2">
+                            <TextBox.Text>
+                                <Binding Path="Address2" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <helpers:AddressInputValidationRule ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox Grid.Column="2" Grid.Row="1" 
+                                 PreviewTextInput="AddressValidationTextBox" 
+                                 materialDesign:HintAssist.Hint="АУ3">
+                            <TextBox.Text>
+                                <Binding Path="Address3" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <helpers:AddressInputValidationRule ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <Border Style="{StaticResource SettingsArea}">
+            <StackPanel Margin="10 0 10 5">
+                <TextBlock Text="Настройки ТК158" 
+                           Style="{StaticResource MyGroupTitleTextBlock}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0" >
+                        <TextBlock DockPanel.Dock="Top"
+                            Text="Делитель частоты"  
+                            Style="{StaticResource MyGroupSubTitleTextBlock}"/>
+
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <RadioButton Content="128 кГц"
+                                         IsChecked="{Binding Is128kHz}"
+                                         Command="{Binding ChangeModeCommand}"
+                                         Style="{StaticResource MyGroupRadioButton}"/>
+                            <RadioButton Content="256 кГц" 
+                                         IsChecked="{Binding Is256kHz}" 
+                                         Command="{Binding ChangeModeCommand}"
+                                         Style="{StaticResource MyGroupRadioButton}"/>
+                            <RadioButton Content="512 кГц"
+                                         IsChecked="{Binding Is512kHz}" 
+                                         Command="{Binding ChangeModeCommand}"
+                                         Style="{StaticResource MyGroupRadioButton}"/>
+                            <RadioButton Content="1024 кГц" 
+                                         IsChecked="{Binding Is1024kHz}" 
+                                         Command="{Binding ChangeModeCommand}"
+                                         Style="{StaticResource MyGroupRadioButton}"/>
+                        </StackPanel>
+                        <Border DockPanel.Dock="Top" BorderThickness="0 1 0 0" Margin="0 0 0 10"
+                                BorderBrush="{StaticResource MaterialDesignDivider}" />
+
+
+                        <Grid DockPanel.Dock="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Длина слова" Grid.Row="0"                                
+                                   Style="{StaticResource MyGroupSubTitleTextBlock}"/>
+
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <RadioButton Content="16 Бит"
+                                         IsChecked="{Binding Is16Bit}"
+                                         Command="{Binding ChangeModeCommand}"
+                                         Style="{StaticResource MyGroupRadioButton}"/>
+                                <RadioButton Content="32 Бит"
+                                         IsChecked="{Binding Is32Bit}" 
+                                         Command="{Binding ChangeModeCommand}"
+                                         Style="{StaticResource MyGroupRadioButton}"/>
+                            </StackPanel>
+                            <ComboBox Width="45" Grid.RowSpan="2" Grid.Column="1"
+                                      HorizontalAlignment="Left"
+                                      HorizontalContentAlignment="Center"
+                                      ItemsSource="{Binding ListBitsCount}"
+                                      SelectedValue="{Binding SelectedBits , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          materialDesign:HintAssist.Hint="Бит" 
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
+                            </ComboBox>
+                        </Grid>
+
+                        <Border DockPanel.Dock="Top" BorderThickness="0 1 0 0" Margin="0 0 0 10"
+                                BorderBrush="{StaticResource MaterialDesignDivider}" />
+
+                        <CheckBox Content="Непрерывная тактовая частота"  
+                                  DockPanel.Dock="Top"                             
+                                  IsChecked="{Binding IsInfiniteFT}"/>
+                    </DockPanel>
+
+                    <Button Grid.Row="2" Margin="0 0 0 5"
+                            HorizontalAlignment="Right" 
+                            Content="Применить" 
+                            FontSize="15" 
+                            Command="{Binding SendTK158SettingsCommand}"
+                            Style="{StaticResource SendButton}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

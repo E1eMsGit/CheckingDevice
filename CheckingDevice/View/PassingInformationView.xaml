@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="TK158.View.PassingInformationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:TK158.View"
+             mc:Ignorable="d"              
+             MinHeight="400" MinWidth="400">
+    
+    <UserControl.Resources>
+        <Style TargetType="TextBox" 
+               BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+            <Setter Property="MaxLength" Value="4"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 25 6"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
+    </UserControl.Resources>
+
+    <DockPanel>
+        <DataGrid DockPanel.Dock="Top" ItemsSource="{Binding SourceItems, Mode=OneWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Address, Mode=OneTime}" 
+                                    Width="120"/>
+                <DataGridTextColumn Header="Номинал" Binding="{Binding Denomination, Mode=OneTime}" 
+                                    Width="*"/>
+                <DataGridTextColumn Header="Результат" Binding="{Binding Result, NotifyOnTargetUpdated=True, Mode=OneWay}"
+                                    Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" 
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                    Margin="0 0 10 10">
+            <ProgressBar Value="0" Margin="0 0 10 0"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Visibility="{Binding ProgressBarVisibility}"
+                         IsIndeterminate="True" />
+            <Button Style="{StaticResource SendButton}"                                 
+                    Command="{Binding StartCommand}">
+                <Button.Content>
+                    <TextBlock Text="{Binding StartButtonText}" Margin="25 0" FontSize="15"/>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+
+    </DockPanel>
+</UserControl>

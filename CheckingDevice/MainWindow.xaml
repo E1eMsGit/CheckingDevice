@@ -1,0 +1,107 @@
+﻿<Window x:Class="TK158.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:TK158"
+        xmlns:v="clr-namespace:TK158.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"     
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        
+        Title="TA 1004M1" 
+        Height="690" Width="500"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" 
+        Background="White"
+        FontFamily="{StaticResource MaterialDesignFont}"
+        TextElement.FontSize="15">
+
+    <Window.Resources>
+        <Style TargetType="DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style>
+        
+        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseWindowCommand}"/>
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <materialDesign:DialogHost CloseOnClickAway="True" Identifier="RootDialog">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            
+            <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Grid.Row="0">
+                <DockPanel>
+                    <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                        <StackPanel>
+                            <Button Content="Справка"
+                                Command="{Binding OpenHelpCommand}"/>
+                            <Button Content="Сохранить отчет"
+                                Command="{Binding SaveLogCommand}"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                    <TextBlock Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Title}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </DockPanel>
+            </materialDesign:ColorZone>
+
+            <Grid x:Name="mainPanel" Grid.Row="1" IsEnabled="{Binding MainPanelEnabled}"/>
+
+            <StackPanel Grid.Row="2">
+                <Border BorderThickness="0 1 0 0" BorderBrush="{StaticResource MaterialDesignDivider}"/>
+
+                <Grid Margin="5 2 5 0" DockPanel.Dock="Bottom" IsEnabled="{Binding NavBarEnabled}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Grid.Column="0"
+                                 IsEnabled="{Binding HomeButtonEnabled}"
+                                 Margin="0 0 1 0" 
+                                 HorizontalContentAlignment="Center"
+                                 IsChecked="{Binding HomeButtonCheckStatus}"
+                                 Style="{StaticResource MaterialDesignTabRadioButton}">
+                        <materialDesign:PackIcon Kind="Home" Height="20" Width="20"/>
+                    </RadioButton>
+                    <RadioButton Grid.Column="1" IsEnabled="{Binding SettingsButtonEnabled}"
+                                 Margin="1 0 0 0" 
+                                 HorizontalContentAlignment="Center" 
+                                 IsChecked="{Binding SettingsButtonCheckStatus}"
+                                 Style="{StaticResource MaterialDesignTabRadioButton}">
+                        <materialDesign:PackIcon Kind="Settings" Height="20" Width="20"/>
+                    </RadioButton>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        
+    </materialDesign:DialogHost>
+</Window>

@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="TK158.View.OtherTestsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TK158.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+
+    <DockPanel Margin="10">
+        <Border DockPanel.Dock="Top" Style="{StaticResource SettingsArea}">
+            <StackPanel Margin="10 0" DockPanel.Dock="Top" 
+                        IsEnabled="{Binding ModePanelEnabled}">
+                <TextBlock Text="Режим проверки"
+                       Style="{StaticResource MyGroupTitleTextBlock}"/>
+                <StackPanel>
+                    <RadioButton Content="Проверка тока потребления" 
+                             IsChecked="{Binding IsMode1}"
+                             Style="{StaticResource MyGroupRadioButton}"/>
+                    <RadioButton Content="Проверка адресатора" 
+                                 IsChecked="{Binding IsMode2}"
+                                 Style="{StaticResource MyGroupRadioButton}"/>
+                    
+                    <TextBlock Text="Измерение параметров сигнала"
+                               Style="{StaticResource MyGroupSubTitleTextBlock}"/>
+                    <RadioButton Content="Формирование ЗИ и Тоср" 
+                                 IsChecked="{Binding IsMode3}"
+                                 Style="{StaticResource MySubGroupRadioButton}"/>
+                    <RadioButton Content="Измерение параметров сигналов Тоср" 
+                                 IsChecked="{Binding IsMode4}"
+                                 Style="{StaticResource MySubGroupRadioButton}"/>
+                    <RadioButton Content="Измерение параметров сигналов ЗИ1 и ЗИ2" 
+                                 IsChecked="{Binding IsMode5}"
+                                 Style="{StaticResource MySubGroupRadioButton}"/>
+                    <RadioButton Content="Измерение параметров сигналов ЗИ3 и ЗИ4" 
+                                 IsChecked="{Binding IsMode6}"
+                                 Style="{StaticResource MySubGroupRadioButton}"/>
+                    <RadioButton Content="Измерение параметров сигнала ЗИ5" 
+                                 IsChecked="{Binding IsMode7}"
+                                 Style="{StaticResource MySubGroupRadioButton}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" 
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <ProgressBar Value="0" Margin="0 0 10 0"
+                         Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Visibility="{Binding ProgressBarVisibility}"
+                         IsIndeterminate="True" />
+            <Button Style="{StaticResource SendButton}"             
+                    Command="{Binding StartCommand}">
+                    <Button.Content>
+                        <TextBlock Text="{Binding StartButtonText}"
+                                   Margin="25 0" FontSize="15"/>
+                    </Button.Content>
+            </Button>
+        </StackPanel>
+
+
+
+    </DockPanel>
+</UserControl>

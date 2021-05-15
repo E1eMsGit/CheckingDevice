@@ -1,0 +1,53 @@
+<Application x:Class="TK158.App" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             d1p1:Ignorable="d" 
+             StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SendButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+                <Setter Property="Foreground" Value="{StaticResource SecondaryAccentBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource SecondaryAccentBrush}"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Style>
+            
+            <Style x:Key="MyGroupTitleTextBlock" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <Setter Property="Foreground" Value="{StaticResource SecondaryAccentBrush}"/>
+                <Setter Property="Margin" Value="0 5 0 10"/>
+            </Style>
+
+            <Style x:Key="MyGroupSubTitleTextBlock" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <Setter Property="Foreground" Value="{StaticResource  PrimaryHueDarkBrush}"/>
+                <Setter Property="Margin" Value="0 0 0 10"/>
+            </Style>
+
+            <Style x:Key="MyGroupRadioButton" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignRadioButton}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0 0 20 10"/>
+            </Style>
+
+            <Style x:Key="MySubGroupRadioButton" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignRadioButton}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="15 0 20 10"/>
+            </Style>
+
+            <Style x:Key="SettingsArea" TargetType="Border">
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryHueLightBrush}"/>
+                <Setter Property="BorderThickness" Value="2"/>
+            </Style>
+
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:TK158.ViewModel" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Blue.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

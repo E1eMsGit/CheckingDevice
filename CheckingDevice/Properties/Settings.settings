@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TK158.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Address1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0101</Value>
+    </Setting>
+    <Setting Name="Address2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0111</Value>
+    </Setting>
+    <Setting Name="Address3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1111</Value>
+    </Setting>
+    <Setting Name="Frequency" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+    <Setting Name="BitsCount" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="IsInfiniteFT" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="WordLength" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
